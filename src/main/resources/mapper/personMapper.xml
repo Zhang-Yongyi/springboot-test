@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.unique.volunteer.mapper.PersonMapper">
+    <resultMap id="personResult" type="com.unique.volunteer.bean.Person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <select id="selectAllPerson" resultMap="personResult">
+        SELECT * FROM person WHERE is_delete = 0
+    </select>
+
+    <insert id="insertPerson" parameterType="com.unique.volunteer.bean.Person">
+        INSERT person (name) VALUE (#{person.name})
+    </insert>
+
+    <update id="deletePerson" parameterType="com.unique.volunteer.bean.Person">
+        UPDATE person
+        SET is_delete = 1
+        WHERE id = #{person.id}
+    </update>
+
+    <update id="updatePerson" parameterType="com.unique.volunteer.bean.Person">
+        UPDATE person
+        SET name = #{person.name}
+        WHERE id = #{person.id}
+    </update>
+
+    <select id="selectPersonById" resultMap="personResult">
+        SELECT * FROM person WHERE id = #{person.id}
+    </select>
+
+</mapper>
